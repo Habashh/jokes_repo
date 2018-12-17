@@ -1,6 +1,10 @@
 let jokes_list = null;
 let joke_form = null;
 let joke_input = null;
+// comment
+let comments_list = null;
+let comment_form = null;
+let comment_input = null;
 
 document.addEventListener("DOMContentLoaded", (e) => {
     jokes_list = document.querySelector("#jokes_list");
@@ -19,17 +23,62 @@ document.addEventListener("DOMContentLoaded", (e) => {
             joke_input.value = "";
         }
     })
+    //comment
+    comments_list = document.querySelector("#comments_list");
+    comment_form = document.querySelector("section");
+    comment_input = document.querySelector("#comment_body");
 
+    loadComments();
+    comment_form.addEventListener("click", (x) => {
+      // e.preventDefault();
+        let comment_text = comment_input.value;
+        if(comment_text.trim() === "") {
+            alert("Please write a comment");
+        } else {
+            addComment(comment_text.trim());
+            saveComment(comment_text.trim());
+            comment_input.value = "";
+        }
+    })
+    
 
 })
 
+ // add comment
+ function addComment(text) {
+    let template = document.createElement("li");
+    template.classList.add("comment");
+    template.innerText = text;
+    jokes_list.appendChild(template); 
+}
+
 function addJoke(text) {
     let template = document.createElement("li");
+    let templatesub = document.createElement("INPUT");
+    let templatecom = document.createElement("INPUT");
+    templatesub.setAttribute("type", "submit");
+    templatesub.setAttribute("value","Comment");
+    //templatesub.setAttribute("id","comment_form");
+    templatecom.setAttribute("type", "text");
+    templatecom.setAttribute("id","comment_body");
     template.classList.add("joke");
     template.innerText = text;
     jokes_list.appendChild(template);
+    jokes_list.appendChild(templatesub);
+    jokes_list.appendChild(templatecom);
+    }
+   
+    // Save comment
+function saveComment(text) {
+    let comments = localStorage.getItem("local_comments");
+    if(comments == null) {
+        comments = [];
+    } else {
+        comments = JSON.parse(comments);
+    }
+    comments.push(text);
+    localStorage.setItem("local_comments", JSON.stringify(comments));
 }
-
 function saveJoke(text) {
     let jokes = localStorage.getItem("local_jokes");
     if(jokes == null) {
@@ -41,8 +90,19 @@ function saveJoke(text) {
     localStorage.setItem("local_jokes", JSON.stringify(jokes));
 }
 
+
+
+// loadComments
+function loadComments() {
+    let comments = localStorage.clear("local_comments");
+    if(comments == null) return;
+    comments = JSON.parse(comments);
+    for(let comment of comments) {
+        addComment(comment);
+    }
+}
 function loadJokes() {
-    let jokes = localStorage.getItem("local_jokes");
+    let jokes = localStorage.clear("local_jokes");
     if(jokes == null) return;
     jokes = JSON.parse(jokes);
     for(let joke of jokes) {

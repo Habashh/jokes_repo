@@ -10,7 +10,7 @@ main {
     text-align: center;
 }
 
-#jokes_container {
+#jokes_container{
     width: 100%;
     border: 1px solid black;
     border-radius: 5px;
@@ -18,13 +18,17 @@ main {
     margin-top: 25px;
 }
 
+
 ul {
     list-style: none;
     margin: 10px;
 }
 
-#joke_form, #joke_form input[type='text']{
+#joke_form input[type='text']{
     width: 100%;
+}
+#comment_body{
+    width: 50%;
 }
 
 input[type='submit'] {
@@ -55,4 +59,11 @@ input[type="text"] {
     padding: 10px;
     background-color: #c3c3c355;
     border: 1px solid gray;
+}
+.comment {
+    text-align: left;
+    margin: 5px;
+    padding: 10px;
+    background-color: palevioletred;
+    border: 1px solid royalblue;
 }
