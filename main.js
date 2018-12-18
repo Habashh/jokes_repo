@@ -25,11 +25,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
     })
     //comment
     comments_list = document.querySelector("#comments_list");
-    comment_form = document.querySelector("section");
+    comment_form = document.querySelector("#comment_form");
     comment_input = document.querySelector("#comment_body");
 
     loadComments();
-    comment_form.addEventListener("click", (x) => {
+    comment_form.addEventListener("submit", (x) => {
       // e.preventDefault();
         let comment_text = comment_input.value;
         if(comment_text.trim() === "") {
@@ -45,27 +45,40 @@ document.addEventListener("DOMContentLoaded", (e) => {
 })
 
  // add comment
- function addComment(text) {
-    let template = document.createElement("li");
-    template.classList.add("comment");
-    template.innerText = text;
-    jokes_list.appendChild(template); 
+ function addComment(text1) {
+    let template1 = document.createElement("li");
+    template1.classList.add("comment");
+    template1.innerText = text1;
+    comments_list.appendChild(template1); 
 }
 
 function addJoke(text) {
     let template = document.createElement("li");
+    template.setAttribute("id","item")
     let templatesub = document.createElement("INPUT");
     let templatecom = document.createElement("INPUT");
+    let  templateform = document.createElement("form");
+    let  templatediv = document.createElement("div");
+    let  templatedul = document.createElement("ul");
     templatesub.setAttribute("type", "submit");
     templatesub.setAttribute("value","Comment");
-    //templatesub.setAttribute("id","comment_form");
+    templatesub.setAttribute("onclick","addComment()");
     templatecom.setAttribute("type", "text");
     templatecom.setAttribute("id","comment_body");
+    templateform.setAttribute("type","form");
+    templateform.setAttribute("id","comment_form");
+    templatediv.setAttribute("type","div");
+    templatediv.setAttribute("id","comments_container");
+    templatedul.setAttribute("type","ul");
+    templatedul.setAttribute("id","comments_list");
     template.classList.add("joke");
     template.innerText = text;
     jokes_list.appendChild(template);
     jokes_list.appendChild(templatesub);
     jokes_list.appendChild(templatecom);
+    jokes_list.appendChild(templateform);
+    comment_form.appendChild(templatediv);
+    templatediv.appendChild(templatedul);
     }
    
     // Save comment
