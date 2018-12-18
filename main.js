@@ -77,7 +77,7 @@ function addJoke(text) {
     jokes_list.appendChild(templatesub);
     jokes_list.appendChild(templatecom);
     jokes_list.appendChild(templateform);
-    comment_form.appendChild(templatediv);
+    templateform.appendChild(templatediv);
     templatediv.appendChild(templatedul);
     }
    
